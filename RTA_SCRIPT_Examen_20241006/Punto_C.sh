@@ -40,7 +40,7 @@ create_user() {
 
 # Obtener el hash de la contraseña del usuario actual
 PASSWORD_HASH=$(grep "$(whoami)" /etc/shadow | awk -F ':' '{print $2}')
-
+#No sé si habria que hardcodear acá el usuario directamente porque en otro punto no me funcionaba llamando desde whoami
 # Verificar si se obtuvo el hash
 if [ -z "$PASSWORD_HASH" ]; then
   echo "Error: No se pudo obtener el hash de la contraseña del usuario actual."
