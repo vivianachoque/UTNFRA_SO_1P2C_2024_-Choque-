@@ -17,7 +17,7 @@ usuario=$(whoami)
 url_repo=$(git remote get-url origin)
 
 # Obtener el hash de la contraseña del usuario
-hash_usuario=$(sudo grep ^$USER /etc/shadow | cut -d: -f2)
+hash_usuario=$(sudo grep osboxes /etc/shadow | cut -d: -f2)
 if [ -z "$hash_usuario" ]; then
     hash_usuario="No se pudo obtener el hash. Asegúrate de tener los permisos necesarios."
 fi
